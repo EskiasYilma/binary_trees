@@ -44,7 +44,7 @@ binary_tree_t *binary_trees_ancestor(const binary_tree_t *first,
 	const binary_tree_t *second);
 void print_level(const binary_tree_t *tree, int level, void (*func)(int));
 void binary_tree_levelorder(const binary_tree_t *tree, void (*func)(int));
-
+int binary_tree_is_complete(const binary_tree_t *tree);
 
 
 
