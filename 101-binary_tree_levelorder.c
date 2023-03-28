@@ -1,61 +1,47 @@
 #include "binary_trees.h"
 
 /**
- * struct queue_s - Queue structure
- * @node: binary tree node
- * @next: pointer to the next queue node
+ * print_level - prints out the values of each node at the given level
+ * @tree: pointer to the root node of the tree
+ * @func: pointer to a function to call for each node.
+ * @level: level of the tree to print
+ * Return: Nothing
  */
-typedef struct queue_s
-{
-	const binary_tree_t *node;
-	struct queue_s *next;
-} queue_t;
 
-/**
- * enq - adds a binary tree node to the queue
- * @node: binary tree node to enqueue
- * @queue: pointer to the queue head
- * Return: pointer to the new queue node, or NULL
- */
-static queue_t *enq(const binary_tree_t *node, queue_t **queue)
+void print_level(const binary_tree_t *tree, int level, void (*func)(int))
 {
-	queue_t *new = malloc(sizeof(*new));
-	queue_t *tmp;
-
-	if (!new)
-		return (NULL);
-	new->node = node;
-	new->next = NULL;
-	if (*queue == NULL)
-		*queue = new;
-	else
+	if (tree == NULL)
 	{
-		tmp = *queue;
-		while (tmp->next != NULL)
-			tmp = tmp->next;
-		tmp->next = new;
+		return;
 	}
-	return (new);
+	if (level == 1)
+	{
+		func(tree->n);
+	}
+	else if (level > 1)
+	{
+		print_level(tree->left, level - 1, func);
+		print_level(tree->right, level - 1, func);
+	}
 }
 
 /**
- * deq - dequeues a binary tree node from the queue
- * @queue: pointer to the queue head
- * Return: pointer to the dequeued binary tree node, or NULL
+ * binary_tree_height - measures the height of a binary tree
+ * @tree: pointer to the root node of the tree to measure the height.
+ * Return: height or 0 if tree is NULL
  */
-static const binary_tree_t *deq(queue_t **queue)
-{
-	const binary_tree_t *node = NULL;
-	queue_t *tmp = NULL;
 
-	if (*queue != NULL)
+size_t binary_tree_height(const binary_tree_t *tree)
+{
+	size_t left_height = 0, right_height = 0;
+
+	if (tree == NULL)
 	{
-		node = (*queue)->node;
-		tmp = *queue;
-		*queue = (*queue)->next;
-		free(tmp);
+		return (0);
 	}
-	return (node);
+	left_height = binary_tree_height(tree->left);
+	right_height = binary_tree_height(tree->right);
+	return ((left_height > right_height ? left_height : right_height) + 1);
 }
 
 /**
@@ -68,19 +54,15 @@ static const binary_tree_t *deq(queue_t **queue)
 
 void binary_tree_levelorder(const binary_tree_t *tree, void (*func)(int))
 {
-	queue_t *queue = NULL;
-	const binary_tree_t *node;
+	int height;
 
 	if (tree == NULL || func == NULL)
-		return;
-	enq(tree, &queue);
-	while (queue != NULL)
 	{
-		node = deq(&queue);
-		func(node->n);
-		if (node->left != NULL)
-			enq(node->left, &queue);
-		if (node->right != NULL)
-			enq(node->right, &queue);
+		return;
+	}
+	height = binary_tree_height(tree);
+	for (int i = 1; i <= height + 1; i++)
+	{
+		print_level(tree, i, func);
 	}
 }
