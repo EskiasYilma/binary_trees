@@ -42,9 +42,6 @@ binary_tree_t *binary_tree_sibling(binary_tree_t *node);
 binary_tree_t *binary_tree_uncle(binary_tree_t *node);
 binary_tree_t *binary_trees_ancestor(const binary_tree_t *first,
 	const binary_tree_t *second);
-static queue_t *enq(const binary_tree_t *node, queue_t **queue);
-static const binary_tree_t *deq(queue_t **queue);
-void binary_tree_levelorder(const binary_tree_t *tree, void (*func)(int));
 
 
 
