@@ -1,6 +1,17 @@
 #include "binary_trees.h"
 
 /**
+ * struct queue_s - Queue structure
+ * @node: binary tree node
+ * @next: pointer to the next queue node
+ */
+typedef struct queue_s
+{
+	const binary_tree_t *node;
+	struct queue_s *next;
+} queue_t;
+
+/**
  * enq - adds a binary tree node to the queue
  * @node: binary tree node to enqueue
  * @queue: pointer to the queue head
