@@ -4,6 +4,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <limits.h>
+
+
 /**
  * struct binary_tree_s - Binary tree node
  *
@@ -48,6 +51,9 @@ int binary_tree_is_complete(const binary_tree_t *tree);
 int check_bst(const binary_tree_t *tree);
 int check_bal(const binary_tree_t *tree);
 int binary_tree_is_avl(const binary_tree_t *tree);
+int bst_helper(const binary_tree_t *tree, int low, int high);
+int binary_tree_is_bst(const binary_tree_t *tree);
+binary_tree_t *binary_tree_rotate_right(binary_tree_t *tree);
 
 
 
